@@ -6,6 +6,7 @@ import { getByPlaceholderAndClickIt, getByPlaceholderAndFillIt, getElementByRole
 import { validateFirstLocator } from '../utils/validations';
 
 setDefaultTimeout(60 * 1000);
+
 let page: Page, browser: Browser;
 
 BeforeAll(async function () {
