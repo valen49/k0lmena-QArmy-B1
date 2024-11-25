@@ -1,0 +1,26 @@
+{
+  "name": "playwright-automation-framework",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx cucumber-js test --tags @Smoke",
+    "allTests": "npx cucumber-js test",
+    "testUI": "npx playwright test --ui",
+    "debug": "npx playwright test --debug",
+    "report": "node generate-report.ts"
+  },
+  "keywords": [],
+  "author": "Gianella Vezzoni",
+  "license": "ISC",
+  "description": "Playwright automation framework",
+  "devDependencies": {
+    "@cucumber/cucumber": "^11.0.1",
+    "@playwright/test": "^1.47.2",
+    "@types/node": "^22.7.4",
+    "ts-node": "^10.9.2",
+    "cucumber-html-reporter": "^7.2.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
+}
