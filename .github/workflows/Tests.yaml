@@ -6,7 +6,7 @@ jobs:
     name: 'Executing automated Playwright tests'
     runs-on: ubuntu-latest
     container: 
-      image: mcr.microsoft.com/playwright:v1.45.0-jammy
+      image: mcr.microsoft.com/playwright:v1.48.0-jammy
     steps:
     - uses: actions/checkout@v4
 
