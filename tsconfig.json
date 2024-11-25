@@ -10,5 +10,5 @@
         "target": "esnext",
         "module": "commonjs"
     },
-    "include": ["playwright/**/*.ts"]
+    // "include": ["playwright/**/*.ts"],
 }

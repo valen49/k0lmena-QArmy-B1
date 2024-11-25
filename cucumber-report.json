@@ -15,11 +15,11 @@
             "line": 4,
             "name": "User navigates to MercadoLibre page",
             "match": {
-              "location": "src/steps/example.test.ts:22"
+              "location": "src\\steps\\example.test.ts:22"
             },
             "result": {
               "status": "passed",
-              "duration": 1973425125
+              "duration": 1324551200
             }
           },
           {
@@ -28,11 +28,11 @@
             "line": 5,
             "name": "User search for cars options",
             "match": {
-              "location": "src/steps/example.test.ts:26"
+              "location": "src\\steps\\example.test.ts:26"
             },
             "result": {
               "status": "passed",
-              "duration": 1453127125
+              "duration": 1741192200
             }
           },
           {
@@ -41,11 +41,11 @@
             "line": 6,
             "name": "It should show all the results according to the search",
             "match": {
-              "location": "src/steps/example.test.ts:33"
+              "location": "src\\steps\\example.test.ts:33"
             },
             "result": {
               "status": "passed",
-              "duration": 1197999
+              "duration": 974400
             }
           }
         ],
@@ -76,6 +76,6 @@
         "line": 1
       }
     ],
-    "uri": "src/features/example.feature"
+    "uri": "src\\features\\example.feature"
   }
 ]
