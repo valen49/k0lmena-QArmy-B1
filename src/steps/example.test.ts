@@ -1,24 +1,10 @@
-import { expect, chromium, Page, Browser } from '@playwright/test';
-import { Given, setDefaultTimeout, When, Then, AfterAll, BeforeAll } from '@cucumber/cucumber';
+import { expect } from '@playwright/test';
+import { Given, When, Then } from '@cucumber/cucumber';
 import { BASEURL } from '../config';
-import { inputLabel, buttonSearch, divResult } from '../locators/exampleLocators';
-import { getByPlaceholderAndClickIt, getByPlaceholderAndFillIt, getElementByRole, getElementByText } from '../utils/interactions';
+import { page } from '../hooks/hook';
 import { validateFirstLocator } from '../utils/validations';
-
-setDefaultTimeout(60 * 1000);
-
-let page: Page, browser: Browser;
-
-BeforeAll(async function () {
-    browser = await chromium.launch({ headless: true });
-    const context = await browser.newContext();
-    page = await context.newPage();
-});
-
-AfterAll(async function () {
-  await page.close();
-  await browser.close();
-})
+import { inputLabel, buttonSearch, divResult } from '../locators/exampleLocators';
+import { getByPlaceholderAndClickIt, getByPlaceholderAndFillIt, getElementByRole } from '../utils/interactions';
 
 Given("User navigates to MercadoLibre page", async () => {
   await page.goto(BASEURL);
