@@ -23,3 +23,6 @@ The name of the files are:
 -- cucumber-report.html
 -- playwright-report/index.html
 
+## Execute Artillery Report
+
+-> artillery report --output src/reports/load/report.html src/reports/load/result.json
