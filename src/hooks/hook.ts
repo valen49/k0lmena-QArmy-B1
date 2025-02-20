@@ -1,14 +1,23 @@
-import { BeforeAll, AfterAll, setDefaultTimeout } from '@cucumber/cucumber';
-import { chromium, Browser, Page } from 'playwright';
+import {
+  chromium,
+  Browser,
+  Page
+} from 'playwright';
+import {
+  AfterAll,
+  setDefaultTimeout,
+  Before
+} from '@cucumber/cucumber';
 
-let browser: Browser;
 let page: Page;
+let browser: Browser;
 
-BeforeAll(async function () {
+setDefaultTimeout(60 * 1000);
+
+Before(async function () {
   browser = await chromium.launch({ headless: false });
   const context = await browser.newContext();
   page = await context.newPage();
-  setDefaultTimeout(60 * 1000);
 });
 
 AfterAll(async function () {
