@@ -7,7 +7,9 @@
     "allTests": "npx cucumber-js test",
     "testUI": "npx playwright test --ui",
     "debug": "npx playwright test --debug",
-    "report": "node generate-report.ts"
+    "report": "node generate-report.ts",
+    "load": "npx artillery run .github/workflows/load-test.yml --output src/reports/load/result.json",
+    "load-report": "artillery report --output src/reports/load/report.html src/reports/load/result.json" 
   },
   "keywords": [],
   "author": "Gianella Vezzoni",
@@ -17,8 +19,9 @@
     "@cucumber/cucumber": "^11.0.1",
     "@playwright/test": "^1.47.2",
     "@types/node": "^22.7.4",
-    "ts-node": "^10.9.2",
-    "cucumber-html-reporter": "^7.2.0"
+    "artillery": "^2.0.21",
+    "cucumber-html-reporter": "^7.2.0",
+    "ts-node": "^10.9.2"
   },
   "dependencies": {
     "dotenv": "^16.4.5"

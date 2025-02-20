@@ -1,0 +1,13 @@
+config:
+  target: "https://www.google.com"
+  phases:
+    - duration: 50
+      arrivalRate: 2
+  engines:
+    playwright:
+      launchOptions:
+        headless: true
+scenarios:
+  - name: "Prueba de carga con k0lmena"
+    engine: playwright
+    flowFunction: "miFlujoDeCarga"
