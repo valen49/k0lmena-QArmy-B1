@@ -86,6 +86,9 @@ This project contains all the logic inside of the source folder. Some of the fol
 ## ⭐ License
 This framework is Open Source :)
 
+## ⭐ Known Issues
+Currently we have a bug in hook.ts file that affect run the `UI` and `Debug` Mode
+
 ## 👥 Contributors
 - Gianella Vezzoni
 - Danilo Vezzoni
