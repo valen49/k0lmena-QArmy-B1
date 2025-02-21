@@ -1,13 +1,9 @@
 config:
-  target: "https://www.google.com"
-  phases:
-    - duration: 50
-      arrivalRate: 2
+  target: https://google.com
   engines:
-    playwright:
-      launchOptions:
-        headless: true
+    playwright: {}
+  processor: "../../src/performance-test/load-test-processor.ts"
 scenarios:
-  - name: "Prueba de carga con k0lmena"
-    engine: playwright
-    flowFunction: "miFlujoDeCarga"
+  - engine: playwright
+    flowFunction: "googleSearch"
+    flow: []

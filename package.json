@@ -8,11 +8,11 @@
     "testUI": "npx playwright test --ui",
     "debug": "npx playwright test --debug",
     "report": "node generate-report.ts",
-    "load": "npx artillery run .github/workflows/load-test.yml --output src/reports/load/result.json",
-    "load-report": "artillery report --output src/reports/load/report.html src/reports/load/result.json" 
+    "load": "npx artillery run .github/workflows/load-test.yml --output src/reports/performance/report.json",
+    "load-report": "npx artillery report src/reports/performance/report.json"
   },
   "keywords": [],
-  "author": "Gianella Vezzoni",
+  "author": "Gianella Vezzoni - Danilo Vezzoni - Maximiliano Pintos",
   "license": "ISC",
   "description": "Playwright automation framework",
   "devDependencies": {
@@ -20,6 +20,7 @@
     "@playwright/test": "^1.47.2",
     "@types/node": "^22.7.4",
     "artillery": "^2.0.21",
+    "artillery-engine-playwright": "^1.19.0",
     "cucumber-html-reporter": "^7.2.0",
     "ts-node": "^10.9.2"
   },

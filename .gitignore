@@ -8,3 +8,6 @@ cucumber-report.json
 package-lock.json
 report.html
 result.json
+front-report.html
+report.json
+report.json.html
