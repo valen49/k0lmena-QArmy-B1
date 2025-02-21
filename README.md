@@ -6,7 +6,14 @@ In this project we use playwright with typescript.
 At the root of the project folder, you should run `npm install` or `npm i` and then `npx playwright install`.
 
 ## Run project
-Run `npm run test` to start running all the tests
+Front:
+Run tests with the tag @Smoke `npm run test` 
+Run all tests `npm run allTests`
+Report generation `npm run report` 
+
+Performance test:
+Report tests `npm run load` 
+Report generation `npm run load-report` 
 
 ## Architecture
 This project contains all the logic inside of the source folder. Some of the folder you will find:
