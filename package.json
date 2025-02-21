@@ -5,8 +5,6 @@
   "scripts": {
     "test": "npx cucumber-js test --tags @Smoke",
     "allTests": "npx cucumber-js test",
-    "testUI": "npx playwright test --ui",
-    "debug": "npx playwright test --debug",
     "report": "node generate-report.ts",
     "load": "npx artillery run .github/workflows/load-test.yml --output src/reports/performance/report.json",
     "load-report": "npx artillery report src/reports/performance/report.json"
