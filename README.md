@@ -2,9 +2,14 @@
 <img src="https://i.imgur.com/jrStTTp.png" width="400px">
 </p>
 
-# Playwright Automation Framework
+# k0lmena Automation Framework
 
-For this project we use playwright with typescript.
+## ⚙️ Technologies
+
+- TypeScript
+- Playwright
+- Cucumber
+- Artillery
 
 ## 🛠️ Setting up development environment
 
