@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "npx cucumber-js test --tags @Smoke",
+    "test": "npx cucumber-js test --tags @Regression",
     "allTests": "npx cucumber-js test",
     "testUI": "npx playwright test --ui",
     "debug": "npx playwright test --debug",

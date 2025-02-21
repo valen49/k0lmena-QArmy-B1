@@ -22,7 +22,3 @@ After each execution, the project generates two types of reports. Both of them a
 The name of the files are:
 -- cucumber-report.html
 -- playwright-report/index.html
-
-## Execute Artillery Report
-
--> artillery report --output src/reports/load/report.html src/reports/load/result.json

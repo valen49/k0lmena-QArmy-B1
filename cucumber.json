@@ -1,13 +1,22 @@
 {
   "default": {
-    "paths": ["src/front-test/features/*.feature"],
-    "require": ["src/front-test/steps/*.ts"],
-    "requireModule": ["ts-node/register"],
+    "paths": [
+      "src/front-test/features/*.feature"
+    ],
+    "require": [
+      "src/front-test/steps/*.ts"
+    ],
+    "requireModule": [
+      "ts-node/register"
+    ],
     "formatOptions": {
       "snippetInterface": "async-await"
     },
     "format": [
-      ["html", "src/reports/front/front-report.html"],
+      [
+        "html",
+        "src/reports/front/front-report.html"
+      ],
       "summary",
       "progress-bar",
       "json:src/reports/front/cucumber-report.json"
