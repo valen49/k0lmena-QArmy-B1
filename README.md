@@ -1,40 +1,98 @@
+<p align="center">
+<img src="https://i.imgur.com/jrStTTp.png" width="400px">
+</p>
+
 # Playwright Automation Framework
 
-In this project we use playwright with typescript.
+For this project we use playwright with typescript.
 
-## Setting up development environment
-At the root of the project folder, you should run `npm install` or `npm i` and then `npx playwright install`.
+## 🛠️ Setting up development environment
 
-## Run project
+### Prerequisites
+You will need the following to run this Framework:
 
-<b>Front:</b>
+NodeJs:
+```
+https://nodejs.org/en/download/
+```
 
-Run tests with the tag @Smoke `npm run test` 
+Visual Studio Code:
+```
+https://code.visualstudio.com/download
+```
 
-Run all tests `npm run allTests`
+Open the project and run `npm install` or `npm i` to install de dependencies and then `npx playwright install`.
 
-Report generation `npm run report` 
+## 🚀 Run the project
 
-<br />
+### Front:
 
-<b>Performance test:</b>
+Run tests with @Smoke tags: 
+```
+npm run test
+```
+Run all tests: 
+```
+npm run allTests
+```
+Debug mode: 
+```
+npm run debug
+```
+UI mode: 
+```
+npm run testUI
+```
 
-Report tests `npm run load` 
+### Performance test:
 
-Report generation `npm run load-report` 
+Report tests: 
+```
+npm run load
+```
+
+## 📋 Reports
+After each execution, you can generate two types of reports
+
+Front report: 
+```
+npm run report
+```
+
+Performance report: 
+```
+npm run load-report
+```
+
 
 
 ## Architecture
 This project contains all the logic inside of the source folder. Some of the folder you will find:
 
 -- Features: Gherkin feature files with all the scenarios and steps.
+
 -- Steps: Communication between features and steps functions.
+
 -- Locators: Elements of the site to test. It could be xpath, classes, test id, etc.
+
 -- Config: Files with general configurations of the project. Now contains the use of environments.
+
 -- Utils: Files with reusable general functions of playwright.
 
-## Reports
-After each execution, the project generates two types of reports. Both of them are in html extension and show the results of the tests (show the total of test that passed, skipped and failed).
-The name of the files are:
--- cucumber-report.html
--- playwright-report/index.html
+## 📖 Documentation
+
+[![Watch the video](https://img.youtube.com/vi/n7plezXinZ8/maxresdefault.jpg)](https://youtu.be/n7plezXinZ8)
+
+## ⭐ License
+This framework is Open Source :)
+
+## 👥 Contributors
+- Gianella Vezzoni
+- Danilo Vezzoni
+- Maximiliano Pintos
+
+
+
+<p align="center">
+<img src="https://img.shields.io/badge/STATUS-EN%20DESAROLLO-green">
+</p>
