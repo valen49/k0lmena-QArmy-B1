@@ -5,7 +5,6 @@ node_modules/
 /playwright/.cache/
 cucumber-report.html
 cucumber-report.json
-package-lock.json
 report.html
 result.json
 front-report.html
