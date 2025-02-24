@@ -31,7 +31,7 @@ jobs:
         run: npm install -g artillery
 
       - name: Run Artillery Load Tests
-        run: artillery run .github/workflows/load-tests.yml
+        run: artillery run .github/workflows/load-test.yml
       
       - name: Upload Test Results
         if: always()
