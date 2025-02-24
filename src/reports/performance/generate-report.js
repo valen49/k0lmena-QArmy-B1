@@ -8,7 +8,7 @@ function renderObjectTable(obj) {
   }
   let rows = '';
   for (const key in obj) {
-    if (obj.hasOwnProperty(key)) {
+    if (Object.hasOwnProperty.call(obj, key)) {
       rows += `<tr><td>${key}</td><td>${obj[key]}</td></tr>`;
     }
   }
@@ -45,8 +45,7 @@ function generateHTMLReport(data) {
   const barColors = counterLabels.map((_, index) => presetColors[index % presetColors.length]);
   const borderColors = barColors.map(color => color.replace(/0\.8/, '1'));
 
-  return `
-<!DOCTYPE html>
+  return `<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -54,44 +53,46 @@ function generateHTMLReport(data) {
   <!-- Tipografía moderna -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
-    /* Estilos generales dark con tipografía Poppins */
+    /* Estilos generales para el reporte */
     body {
-      margin: 0;
-      padding: 20px;
+      margin: 10px;
+      padding: 10px;
       font-family: 'Poppins', sans-serif;
       background-color: #121212;
       color: #e0e0e0;
-      line-height: 1.6;
+      line-height: 1.4;
+      overflow-x: hidden;
     }
     h1, h2, h3, h4, h5 {
       color: #ffffff;
+      text-align: center;
+      margin: 8px 0;
     }
     .section {
-      margin-bottom: 40px;
+      margin-bottom: 30px;
     }
-    .card {
-      background-color: #1e1e1e;
-      border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    .section-title {
+      border-bottom: 2px solid #e0e0e0;
+      padding-bottom: 5px;
+      margin-bottom: 15px;
     }
-    /* Layout en grid para tablas compactas */
+    /* Distribución de tablas en dos columnas en Resultados Agregados */
     .table-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      margin-top: 10px;
-      margin-bottom: 20px;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 15px;
     }
+    /* Tablas centradas y con ancho reducido */
     .data-table {
-      width: 100%;
+      width: 90%;
       border-collapse: collapse;
-      font-size: 0.9em;
+      font-size: 0.85em;
+      margin: 0 auto 30px;
     }
     .data-table th, .data-table td {
       border: 1px solid #333;
-      padding: 8px;
+      padding: 6px;
       text-align: left;
     }
     .data-table th {
@@ -100,16 +101,78 @@ function generateHTMLReport(data) {
     a {
       color: #64b5f6;
     }
-    canvas {
+    /* Contenedor para los gráficos centrado */
+    .charts-row {
+      display: flex;
+      width: 80%;
+      margin: 20px auto 0;
+      justify-content: space-between;
+    }
+    /* Cada contenedor de gráfico ocupa el 42% y es cuadrado */
+    .chart-container {
+      width: 42%;
+      aspect-ratio: 1 / 1;
+      position: relative;
+      padding: 10px;
+      box-sizing: border-box;
       background-color: #1e1e1e;
       border-radius: 8px;
-      padding: 10px;
-      margin-bottom: 20px;
     }
-    /* Adaptabilidad en móviles */
+    .chart-container h3 {
+      margin: 0 0 10px;
+      font-size: 1.2em;
+      font-weight: 600;
+    }
+    .chart-container canvas {
+      position: absolute;
+      top: 50px;
+      left: 0;
+      width: 100% !important;
+      height: calc(100% - 50px) !important;
+    }
+    /* Sección de segmentos: los segmentos ocuparán el 100% y se apilarán verticalmente */
+    .segments-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .segment-card {
+      background-color: #1e1e1e;
+      border-radius: 8px;
+      padding: 15px;
+      box-sizing: border-box;
+      margin-bottom: 15px;
+    }
+    .segment-card h3 {
+      margin-bottom: 10px;
+      font-size: 1.2em;
+      font-weight: 600;
+      text-align: center;
+    }
+    .segment-card p {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    /* En cada segmento, las tablas ocuparán el 100% y se mostrarán una debajo de la otra */
+    .segment-table-grid {
+      display: block;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    /* Adaptabilidad en pantallas pequeñas */
     @media (max-width: 600px) {
       .table-grid {
         grid-template-columns: 1fr;
+      }
+      .charts-row {
+        flex-direction: column;
+        align-items: center;
+      }
+      .chart-container {
+        width: 90%;
+        margin-bottom: 20px;
       }
     }
   </style>
@@ -118,10 +181,11 @@ function generateHTMLReport(data) {
 </head>
 <body>
   <h1>Reporte de Rendimiento de Artillery</h1>
-  <p>Fecha: ${new Date().toLocaleString()}</p>
+  <p style="text-align:center;">Fecha: ${new Date().toLocaleString()}</p>
 
+  <!-- Sección de Resultados Agregados -->
   <div class="section">
-    <h2>Resultados Agregados</h2>
+    <h2 class="section-title">Resultados Agregados</h2>
     <div class="table-grid">
       <div>
         <h3>Counters</h3>
@@ -129,65 +193,56 @@ function generateHTMLReport(data) {
       </div>
       <div>
         <h3>Resumen de <code>vusers.session_length</code></h3>
-        ${
-          data.aggregate.summaries && data.aggregate.summaries["vusers.session_length"]
-            ? renderObjectTable(data.aggregate.summaries["vusers.session_length"])
-            : '<p>No hay resumen disponible.</p>'
-        }
+        ${data.aggregate.summaries && data.aggregate.summaries["vusers.session_length"]
+          ? renderObjectTable(data.aggregate.summaries["vusers.session_length"])
+          : '<p>No hay resumen disponible.</p>'}
       </div>
     </div>
-    <div class="table-grid">
-      <div>
+    <div class="charts-row">
+      <div class="chart-container">
         <h3>Gráfico de Barras</h3>
-        <canvas id="countersBarChart" width="400" height="300"></canvas>
+        <canvas id="countersBarChart"></canvas>
       </div>
-      <div>
+      <div class="chart-container">
         <h3>Gráfico de Torta</h3>
-        <canvas id="countersPieChart" width="400" height="300"></canvas>
+        <canvas id="countersPieChart"></canvas>
       </div>
     </div>
   </div>
 
+  <!-- Sección de Resultados Intermedios (Segmentos) -->
   <div class="section">
-    <h2>Resultados Intermedios</h2>
-    ${data.intermediate
-      .map((item, index) => {
-        return `
-      <div class="card">
-        <h3>Segmento ${index + 1}</h3>
-        <p><strong>Periodo:</strong> ${new Date(parseInt(item.period)).toLocaleString()}</p>
-        <div class="table-grid">
-          <div>
-            <h4>Counters</h4>
-            ${renderObjectTable(item.counters)}
-          </div>
-          <div>
-            <h4>Summaries</h4>
-            ${
-              item.summaries && Object.keys(item.summaries).length > 0
+    <h2 class="section-title">Resultados Intermedios</h2>
+    <div class="segments-grid">
+      ${data.intermediate
+        .map((item, index) => {
+          return `<div class="segment-card">
+            <h3>Segmento ${index + 1}</h3>
+            <p><strong>Periodo:</strong> ${new Date(parseInt(item.period)).toLocaleString()}</p>
+            <div class="segment-table-grid">
+              <h4>Counters</h4>
+              ${renderObjectTable(item.counters)}
+            </div>
+            <div class="segment-table-grid">
+              <h4>Summaries</h4>
+              ${item.summaries && Object.keys(item.summaries).length > 0
                 ? Object.keys(item.summaries)
                     .map(key => `<h5>${key}</h5>${renderObjectTable(item.summaries[key])}`)
                     .join('')
-                : '<p>No hay summaries disponibles.</p>'
-            }
-          </div>
-        </div>
-        <div class="table-grid">
-          <div>
-            <h4>Histograms</h4>
-            ${
-              item.histograms && Object.keys(item.histograms).length > 0
+                : '<p>No hay summaries disponibles.</p>'}
+            </div>
+            <div class="segment-table-grid">
+              <h4>Histograms</h4>
+              ${item.histograms && Object.keys(item.histograms).length > 0
                 ? Object.keys(item.histograms)
                     .map(key => `<h5>${key}</h5>${renderObjectTable(item.histograms[key])}`)
                     .join('')
-                : '<p>No hay histograms disponibles.</p>'
-            }
-          </div>
-        </div>
-      </div>
-      `;
-      })
-      .join('')}
+                : '<p>No hay histograms disponibles.</p>'}
+            </div>
+          </div>`;
+        })
+        .join('')}
+    </div>
   </div>
 
   <script>
@@ -197,7 +252,7 @@ function generateHTMLReport(data) {
     const barColors = ${JSON.stringify(barColors)};
     const borderColors = ${JSON.stringify(borderColors)};
 
-    // Gráfico de Barras
+    // Configuración del gráfico de barras
     const barCtx = document.getElementById('countersBarChart').getContext('2d');
     new Chart(barCtx, {
       type: 'bar',
@@ -213,6 +268,7 @@ function generateHTMLReport(data) {
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: {
             labels: {
@@ -233,9 +289,7 @@ function generateHTMLReport(data) {
               color: '#e0e0e0',
               font: { family: 'Poppins', size: 12 }
             },
-            grid: {
-              color: 'rgba(255, 255, 255, 0.1)'
-            }
+            grid: { color: 'rgba(255, 255, 255, 0.1)' }
           },
           y: {
             beginAtZero: true,
@@ -243,15 +297,13 @@ function generateHTMLReport(data) {
               color: '#e0e0e0',
               font: { family: 'Poppins', size: 12 }
             },
-            grid: {
-              color: 'rgba(255, 255, 255, 0.1)'
-            }
+            grid: { color: 'rgba(255, 255, 255, 0.1)' }
           }
         }
       }
     });
 
-    // Gráfico de Torta (Pie Chart)
+    // Configuración del gráfico de torta (Pie Chart)
     const pieCtx = document.getElementById('countersPieChart').getContext('2d');
     new Chart(pieCtx, {
       type: 'pie',
@@ -266,6 +318,7 @@ function generateHTMLReport(data) {
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: {
             labels: {
@@ -284,8 +337,7 @@ function generateHTMLReport(data) {
     });
   </script>
 </body>
-</html>
-  `;
+</html>`;
 }
 
 const inputPath = path.join(__dirname, 'report.json');
