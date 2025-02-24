@@ -1,5 +1,5 @@
-import { chromium, Browser, Page } from 'playwright';
-import { AfterAll, setDefaultTimeout, Before } from '@cucumber/cucumber';
+import { chromium, firefox, webkit, Browser, Page } from 'playwright';
+import { Before, AfterAll, setDefaultTimeout } from '@cucumber/cucumber';
 
 let page: Page;
 let browser: Browser | undefined;
@@ -7,10 +7,17 @@ let browser: Browser | undefined;
 setDefaultTimeout(60 * 1000);
 
 Before(async function () {
+
   try {
-    // Si estamos en CI, lanzamos en modo headless
     const isCI = process.env.CI === 'true' || process.env.CI === '1';
-    browser = await chromium.launch({ headless: isCI ? true : false });
+    const browserType = process.env.BROWSER || 'chromium';
+
+    browser = await (
+      browserType === 'firefox' ? firefox :
+      browserType === 'webkit' ? webkit :
+      chromium
+    ).launch({ headless: isCI });
+
     const context = await browser.newContext();
     page = await context.newPage();
   } catch (error) {
@@ -20,10 +27,8 @@ Before(async function () {
 });
 
 AfterAll(async function () {
-  if (browser && typeof browser.close === 'function') {
+  if (browser) {
     await browser.close();
-  } else {
-    console.warn('No hay una instancia de navegador para cerrar.');
   }
 });
 
