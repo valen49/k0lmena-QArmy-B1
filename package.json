@@ -8,7 +8,7 @@
     "report": "node generate-report.ts",
     "load": "npx artillery run .github/workflows/load-test.yaml --output src/reports/performance/report.json",
     "load-report": "node src/reports/performance/generate-report.js",
-    "load-report-cloud": "npx artillery run .github/workflows/load-test.yaml --record --key a9_eus1ULjF6H5E2asRQO4VPiJ-Beh9asJ0"
+    "load-report-cloud": "npx artillery run .github/workflows/load-test.yaml --record --key YOUR--KEY--HERE"
   },
   "keywords": [],
   "author": "Gianella Vezzoni - Danilo Vezzoni - Maximiliano Pintos",
