@@ -31,7 +31,7 @@ jobs:
         run: npm install -g artillery
 
       - name: Run Artillery Load Tests
-        run: artillery run load-test.yaml
+        run: artillery run .github/workflows/load-test.yaml
 
       - name: Run performance reporter generator
         run: node src/reports/performance/generate-report.js
