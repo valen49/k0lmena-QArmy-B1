@@ -5,7 +5,8 @@
   "scripts": {
     "test": "npx cucumber-js test --tags @Smoke",
     "allTests": "npx cucumber-js test",
-    "report": "node generate-report.ts",
+    "report": "npx ts-node src/reports/front/report-generator.js",
+    "report-default": "node generate-report.ts",
     "load": "npx artillery run .github/workflows/load-test.yaml --output src/reports/performance/report.json",
     "load-report": "node src/reports/performance/generate-report.js",
     "load-report-cloud": "npx artillery run .github/workflows/load-test.yaml --record --key YOUR--KEY--HERE"
@@ -13,7 +14,7 @@
   "keywords": [],
   "author": "Gianella Vezzoni - Danilo Vezzoni - Maximiliano Pintos",
   "license": "ISC",
-  "description": "Playwright automation framework",
+  "description": "k0lmena automation framework",
   "devDependencies": {
     "@cucumber/cucumber": "^11.0.1",
     "@playwright/test": "^1.47.2",
@@ -21,6 +22,7 @@
     "artillery": "^2.0.21",
     "artillery-engine-playwright": "^1.19.0",
     "cucumber-html-reporter": "^7.2.0",
+    "multiple-cucumber-html-reporter": "^3.9.2",
     "ts-node": "^10.9.2"
   },
   "dependencies": {
