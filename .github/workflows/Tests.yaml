@@ -31,7 +31,7 @@ jobs:
         run: npm install -g artillery
 
       - name: Run Artillery Load Tests
-        run: artillery run load-tests.yaml
+        run: artillery run load-test.yaml
 
       - name: Run performance reporter generator
         run: node src/reports/performance/generate-report.js
@@ -40,12 +40,12 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with: 
-          name: cucumber-report
+          name: performance-report
           path: src/reports/performance
       
       - name: Upload Front Test Results
         if: always()
         uses: actions/upload-artifact@v4
         with: 
-          name: cucumber-report
+          name: front-report
           path: src/reports/front
