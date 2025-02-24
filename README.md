@@ -41,9 +41,12 @@ Run all tests:
 npm run allTests
 ```
 
-### Performance test:
+### API Test:
+```
+npm run apiTest
+```
 
-Run Performance tests: 
+### Performance test:
 ```
 npm run load
 ```
@@ -61,6 +64,12 @@ npm run report
 Cucumber default report: 
 ```
 npm run report-default
+```
+
+### API Reports:
+
+```
+npm run api-report
 ```
 
 ### Performance Reports:
