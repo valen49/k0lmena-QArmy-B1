@@ -51,7 +51,9 @@ npm run load
 ## 📋 Reports
 After each execution, you can generate two types of reports
 
-Front report: 
+### Front Reports:
+
+Complete report: 
 ```
 npm run report
 ```
@@ -61,7 +63,9 @@ Cucumber default report:
 npm run report-default
 ```
 
-Performance report: 
+### Performance Reports:
+
+Local Performance report: 
 ```
 npm run load-report
 ```
