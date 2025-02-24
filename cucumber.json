@@ -9,6 +9,7 @@
     "requireModule": [
       "ts-node/register"
     ],
+    "timeout": 60000,
     "formatOptions": {
       "snippetInterface": "async-await"
     },
@@ -32,6 +33,7 @@
     "requireModule": [
       "ts-node/register"
     ],
+    "timeout": 60000,
     "formatOptions": {
       "snippetInterface": "async-await"
     },
