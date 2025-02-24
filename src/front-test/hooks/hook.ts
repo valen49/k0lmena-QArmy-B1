@@ -1,35 +1,41 @@
 import { chromium, firefox, webkit, Browser, Page } from 'playwright';
-import { Before, AfterAll, setDefaultTimeout } from '@cucumber/cucumber';
+import { BeforeAll, AfterAll, setDefaultTimeout } from '@cucumber/cucumber';
 
-let page: Page;
-let browser: Browser | undefined;
+let browsers: Browser[] = [];
+let pages: Page[] = [];
 
 setDefaultTimeout(60 * 1000);
 
-Before(async function () {
+BeforeAll(async function () {
+  const browserChoice = process.env.BROWSER; // Lee la variable de entorno
+  let browserTypes = [];
 
-  try {
-    const isCI = process.env.CI === 'true' || process.env.CI === '1';
-    const browserType = process.env.BROWSER || 'chromium';
+  if (browserChoice) {
+    console.log(`Ejecutando solo en: ${browserChoice}`);
+    if (browserChoice === 'chromium') browserTypes.push(chromium);
+    if (browserChoice === 'firefox') browserTypes.push(firefox);
+    if (browserChoice === 'webkit') browserTypes.push(webkit);
+  } else {
+    console.log('Ejecutando en Chromium, Firefox y WebKit...');
+    browserTypes = [chromium, firefox, webkit]; // Ejecutar en los 3 si no se especifica BROWSER
+  }
 
-    browser = await (
-      browserType === 'firefox' ? firefox :
-      browserType === 'webkit' ? webkit :
-      chromium
-    ).launch({ headless: isCI });
-
+  for (const browserType of browserTypes) {
+    console.log(`Iniciando pruebas en: ${browserType.name()}`);
+    const browser = await browserType.launch({ headless: false });
     const context = await browser.newContext();
-    page = await context.newPage();
-  } catch (error) {
-    console.error('Error al iniciar el navegador:', error);
-    throw error;
+    const page = await context.newPage();
+
+    browsers.push(browser);
+    pages.push(page);
   }
 });
 
 AfterAll(async function () {
-  if (browser) {
+  console.log('Cerrando navegadores...');
+  for (const browser of browsers) {
     await browser.close();
   }
 });
 
-export { browser, page };
+export { browsers, pages };
