@@ -1,9 +1,0 @@
-config:
-  target: https://google.com
-  engines:
-    playwright: {}
-  processor: "../../src/performance-test/load-test-processor.ts"
-scenarios:
-  - engine: playwright
-    flowFunction: "googleSearch"
-    flow: []

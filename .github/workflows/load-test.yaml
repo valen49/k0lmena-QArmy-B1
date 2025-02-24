@@ -1,0 +1,16 @@
+config:
+  target: https://google.com
+  phases:
+    - duration: 5      # La fase dura 5 segundos
+      arrivalRate: 1    # Comienza con 1 usuarios virtuales por segundo
+      rampTo: 3        # Y gradualmente aumenta hasta 3 usuarios por segundo
+  engines:
+    playwright: {}
+  processor: "../../src/performance-test/load-test-processor.ts"
+  plugins:
+    artillery-cloud:
+      token: "a9_eus1ULjF6H5E2asRQO4VPiJ-Beh9asJ0" # Generate your API key in https://app.artillery.io/settings/api-keys
+scenarios:
+  - engine: playwright
+    flowFunction: "googleSearch"
+    flow: []

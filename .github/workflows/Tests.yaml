@@ -31,11 +31,21 @@ jobs:
         run: npm install -g artillery
 
       - name: Run Artillery Load Tests
-        run: artillery run .github/workflows/load-test.yml
-      
-      - name: Upload Test Results
+        run: npx artillery run .github/workflows/load-test.yaml --output src/reports/performance/report.json
+
+      - name: Run performance reporter generator
+        run: node src/reports/performance/generate-report.js
+
+      - name: Upload Performance Test Results
         if: always()
         uses: actions/upload-artifact@v4
         with: 
-          name: cucumber-report
+          name: performance-report
+          path: src/reports/performance
+      
+      - name: Upload Front Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with: 
+          name: front-report
           path: src/reports/front
