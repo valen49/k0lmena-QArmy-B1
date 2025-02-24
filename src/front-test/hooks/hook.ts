@@ -4,10 +4,8 @@ import { BeforeAll, AfterAll } from '@cucumber/cucumber';
 let browsers: Browser[] = [];
 let pages: Page[] = [];
 
-// Se elimina setDefaultTimeout
-
 BeforeAll(async function (this: any) {
-  const browserChoice = process.env.BROWSER; // Lee la variable de entorno
+  const browserChoice = process.env.BROWSER; 
   let browserTypes = [];
 
   if (browserChoice) {
