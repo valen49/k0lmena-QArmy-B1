@@ -1,5 +1,5 @@
 {
-  "default": {
+  "front": {
     "paths": [
       "src/front-test/features/*.feature"
     ],
@@ -20,6 +20,29 @@
       "summary",
       "progress-bar",
       "json:src/reports/front/cucumber-report.json"
+    ]
+  },
+  "api": {
+    "paths": [
+      "src/api-test/features/*.feature"
+    ],
+    "require": [
+      "src/api-test/tests/*.ts"
+    ],
+    "requireModule": [
+      "ts-node/register"
+    ],
+    "formatOptions": {
+      "snippetInterface": "async-await"
+    },
+    "format": [
+      [
+        "html",
+        "src/reports/api/api-report.html"
+      ],
+      "summary",
+      "progress-bar",
+      "json:src/reports/api/cucumber-report.json"
     ]
   }
 }

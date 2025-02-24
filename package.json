@@ -3,13 +3,15 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "npx cucumber-js test --tags @Smoke",
+    "test": "npx cucumber-js --profile front --tags @Smoke",
     "allTests": "npx cucumber-js test",
     "report": "npx ts-node src/reports/front/report-generator.js",
     "report-default": "node generate-report.ts",
     "load": "npx artillery run .github/workflows/load-test.yaml --output src/reports/performance/report.json",
     "load-report": "node src/reports/performance/generate-report.js",
-    "load-report-cloud": "npx artillery run .github/workflows/load-test.yaml --record --key YOUR--KEY--HERE"
+    "load-report-cloud": "npx artillery run .github/workflows/load-test.yaml --record --key YOUR--KEY--HERE",
+    "apiTest": "npx cucumber-js --profile api --tags @API",
+    "api-report": "node src/reports/api/report-generator.js"
   },
   "keywords": [],
   "author": "Gianella Vezzoni - Danilo Vezzoni - Maximiliano Pintos",
