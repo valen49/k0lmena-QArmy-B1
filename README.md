@@ -65,7 +65,7 @@ Performance report in the Cloud:
 ```
 npm run load-report-cloud
 ```
-Note: To use the reports in the Cloud, is necessary to register in https://artillery.io and generate a KEY. This key should be replaced in the file `.github/workflows/load-test.yaml`
+Note: To use the reports in the Cloud, is necessary to register in https://artillery.io and generate a KEY. This key should be replaced in the file `package.json`
 
 
 ## Architecture
