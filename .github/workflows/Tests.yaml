@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 jobs: 
   ExecuteTests:
-    name: 'Executing automated Playwright tests'
+    name: 'Executing automated Playwright tests and Artillery load tests'
     runs-on: ubuntu-latest
     container: 
       image: mcr.microsoft.com/playwright:v1.50.1-jammy
@@ -21,11 +21,17 @@ jobs:
       - name: Install Browsers
         run: npx playwright install
 
-      - name: Run Tests
+      - name: Run Playwright Tests
         run: npm run test
       
       - name: Run Reports
         run: npm run report
+
+      - name: Install Artillery
+        run: npm install -g artillery
+
+      - name: Run Artillery Load Tests
+        run: artillery run load-tests.yml
       
       - name: Upload Test Results
         if: always()
