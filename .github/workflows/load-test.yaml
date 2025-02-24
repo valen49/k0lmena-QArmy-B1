@@ -7,9 +7,6 @@ config:
   engines:
     playwright: {}
   processor: "../../src/performance-test/load-test-processor.ts"
-  plugins:
-    artillery-cloud:
-      token: "a9_eus1ULjF6H5E2asRQO4VPiJ-Beh9asJ0" # Generate your API key in https://app.artillery.io/settings/api-keys
 scenarios:
   - engine: playwright
     flowFunction: "googleSearch"
