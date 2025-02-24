@@ -62,6 +62,9 @@ function generateHTMLReport(data) {
       color: #e0e0e0;
       line-height: 1.4;
       overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
     h1, h2, h3, h4, h5 {
       color: #ffffff;
@@ -100,17 +103,18 @@ function generateHTMLReport(data) {
     }
     a {
       color: #64b5f6;
+      text-decoration: none;
     }
     /* Contenedor para los gráficos centrado */
     .charts-row {
       display: flex;
-      width: 80%;
+      width: 90%;
       margin: 20px auto 0;
       justify-content: space-between;
     }
-    /* Cada contenedor de gráfico ocupa el 42% y es cuadrado */
+    /* Cada contenedor de gráfico ahora ocupa el 46% y es cuadrado */
     .chart-container {
-      width: 42%;
+      width: 46%;
       aspect-ratio: 1 / 1;
       position: relative;
       padding: 10px;
@@ -155,11 +159,19 @@ function generateHTMLReport(data) {
       text-align: center;
       margin-bottom: 10px;
     }
-    /* En cada segmento, las tablas ocuparán el 100% y se mostrarán una debajo de la otra */
+    /* Dentro de cada segmento, las tablas se muestran en bloque, ocupando el 100% */
     .segment-table-grid {
       display: block;
       width: 100%;
       margin-bottom: 15px;
+    }
+    /* Footer */
+    footer {
+      margin-top: auto;
+      padding: 10px;
+      text-align: center;
+      border-top: 1px solid #333;
+      font-size: 0.9em;
     }
     /* Adaptabilidad en pantallas pequeñas */
     @media (max-width: 600px) {
@@ -245,8 +257,13 @@ function generateHTMLReport(data) {
     </div>
   </div>
 
+  <!-- Footer -->
+  <footer>
+    Desarrollado por <a href="https://qarmy.ar" target="_blank">QARMY</a> &amp; <a href="https://underc0de.org" target="_blank">Underc0de</a>
+  </footer>
+
   <script>
-    // Datos para los gráficos
+    //Datos para los gráficos
     const counterLabels = ${JSON.stringify(counterLabels)};
     const counterValues = ${JSON.stringify(counterValues)};
     const barColors = ${JSON.stringify(barColors)};
