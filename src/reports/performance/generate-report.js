@@ -104,13 +104,13 @@ function generateHTMLReport(data) {
     /* Contenedor para los gráficos centrado */
     .charts-row {
       display: flex;
-      width: 80%;
+      width: 90%;
       margin: 20px auto 0;
       justify-content: space-between;
     }
-    /* Cada contenedor de gráfico ocupa el 42% y es cuadrado */
+    /* Cada contenedor de gráfico ahora ocupa el 46% y es cuadrado */
     .chart-container {
-      width: 42%;
+      width: 46%;
       aspect-ratio: 1 / 1;
       position: relative;
       padding: 10px;
@@ -155,7 +155,7 @@ function generateHTMLReport(data) {
       text-align: center;
       margin-bottom: 10px;
     }
-    /* En cada segmento, las tablas ocuparán el 100% y se mostrarán una debajo de la otra */
+    /* Dentro de cada segmento, las tablas se muestran una debajo de la otra ocupando el 100% */
     .segment-table-grid {
       display: block;
       width: 100%;
