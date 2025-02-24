@@ -1,13 +1,11 @@
 import { chromium, firefox, webkit, Browser, Page } from 'playwright';
-import { BeforeAll, AfterAll, setDefaultTimeout } from '@cucumber/cucumber';
+import { BeforeAll, AfterAll } from '@cucumber/cucumber';
 
 let browsers: Browser[] = [];
 let pages: Page[] = [];
 
-setDefaultTimeout(60 * 1000);
-
-BeforeAll(async function () {
-  const browserChoice = process.env.BROWSER; // Lee la variable de entorno
+BeforeAll(async function (this: any) {
+  const browserChoice = process.env.BROWSER; 
   let browserTypes = [];
 
   if (browserChoice) {
@@ -17,7 +15,7 @@ BeforeAll(async function () {
     if (browserChoice === 'webkit') browserTypes.push(webkit);
   } else {
     console.log('Ejecutando en Chromium, Firefox y WebKit...');
-    browserTypes = [chromium, firefox, webkit]; // Ejecutar en los 3 si no se especifica BROWSER
+    browserTypes = [chromium, firefox, webkit];
   }
 
   for (const browserType of browserTypes) {
