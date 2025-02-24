@@ -5,5 +5,5 @@ Feature: Example API Testing
     Then the response status should be 200
 @API
   Scenario: Validate API response body
-    Given I make a GET request to "/v2/pet/1029384756"
+    Given I make a GET request to "/v2/pet/20593238"
     Then the response should contain "id"
