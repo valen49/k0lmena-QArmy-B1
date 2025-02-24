@@ -6,9 +6,9 @@
     "test": "npx cucumber-js test --tags @Smoke",
     "allTests": "npx cucumber-js test",
     "report": "node generate-report.ts",
-    "load": "npx artillery run .github/workflows/load-test.yml --output src/reports/performance/report.json",
+    "load": "npx artillery run .github/workflows/load-test.yaml --output src/reports/performance/report.json",
     "load-report": "node src/reports/performance/generate-report.js",
-    "load-report-cloud": "npx artillery run .github/workflows/load-test.yml --record --key a9_eus1ULjF6H5E2asRQO4VPiJ-Beh9asJ0"
+    "load-report-cloud": "npx artillery run .github/workflows/load-test.yaml --record --key a9_eus1ULjF6H5E2asRQO4VPiJ-Beh9asJ0"
   },
   "keywords": [],
   "author": "Gianella Vezzoni - Danilo Vezzoni - Maximiliano Pintos",
@@ -24,8 +24,8 @@
     "ts-node": "^10.9.2"
   },
   "dependencies": {
-    "artillery-plugin-html-report": "^2.0.0",
     "@artilleryio/playwright-reporter": "^1.1.2",
+    "artillery-plugin-html-report": "^2.0.0",
     "dotenv": "^16.4.5"
   }
 }
