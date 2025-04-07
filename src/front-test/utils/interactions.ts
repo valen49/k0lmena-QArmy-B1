@@ -103,3 +103,7 @@ export const pressKey = async (page: Page, key: string) => {
 export const getByLocator = async (page: Page, locator: LocatorType) => {
   await page.locator(locator).click();
 }
+
+export const getByLocatorAndFillIt = async (page: Page, locator: LocatorType, value: string) => {
+  await page.locator(locator).fill(value);
+};
