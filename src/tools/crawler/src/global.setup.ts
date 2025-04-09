@@ -13,7 +13,7 @@ const usernameSelector = '[data-testid="email-input"]';
 const passwordSelector = '[data-testid="password-input"]';
 const submitButtonSelector = '[data-testid="login-button"]';
 const welcomeMessage = '[data-testid="welcome-message"]';
-// ---- End of Specific Configuration ----
+// --- End of Specific Configuration ---
 
 async function globalSetup() {
   console.log('🚀 Running Global Setup: Logging in...');

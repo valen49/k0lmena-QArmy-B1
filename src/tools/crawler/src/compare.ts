@@ -11,7 +11,7 @@ const storageStatePath = 'storageState.json';
 
 async function main() {
     // Parse arguments from process.argv
-    const args = process.argv.slice(2); // Get arguments after node and script name
+    const args = process.argv.slice(2); // Get arguments after node and script name.
     const urlArg = args.find(arg => arg.startsWith('--url='));
     const pomArg = args.find(arg => arg.startsWith('--pom='));
     // Check if the optional --use-session flag is present

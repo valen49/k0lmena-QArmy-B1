@@ -19,7 +19,7 @@ function slugify(text: string): string {
         .replace(/^-+|-+$/g, '')
         || 'page';
 }
-// --- End Auxiliary Function ---
+// -- End Auxiliary Function --
 
 // Endpoint to analyze a SINGLE page (unchanged)
 app.post('/analyze', async (req, res) => {

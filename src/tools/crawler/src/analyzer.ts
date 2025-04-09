@@ -219,7 +219,7 @@ export async function analyzePage(url: string, existingPage?: Page, highlight: b
         await browser.close();
     }
 
-    // Return the final real URL and the elements
+    // Return the final real URL and the elements.
     console.log(`(analyzer) Analysis completed for ${pageToAnalyze.url()}. Elements found: ${elements.length}`);
     return { url: pageToAnalyze.url(), elements };
 }

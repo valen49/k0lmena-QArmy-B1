@@ -23,7 +23,7 @@ function waitForEnter(query: string): Promise<void> {
     }))
 }
 
-// Function to convert URLs/text into valid file/class names
+// Function to convert URLs/text into valid file/class names.
 function slugify(text: string): string {
     const urlPath = text.startsWith('http') ? new URL(text).pathname : text;
     if (!urlPath || urlPath === '/') return 'home';

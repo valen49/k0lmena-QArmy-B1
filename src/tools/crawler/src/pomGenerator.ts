@@ -53,7 +53,7 @@ function generateLocatorName(el: ElementData, tag: string, usedNames: Set<string
 }
 
 export function generatePOM(elements: ElementData[], outputFile: string, pageName: string) {
-  // Construir un mapa de frecuencias para los textos (considerando textos con longitud entre 3 y 29 caracteres)
+  // Construir un mapa de frecuencias para los textos (considerando textos con longitud entre 3 y 29 caracteres).
   const frequencyMap: Record<string, number> = {};
   elements.forEach(el => {
     if (el.text && el.text.length > 2 && el.text.length < 30) {

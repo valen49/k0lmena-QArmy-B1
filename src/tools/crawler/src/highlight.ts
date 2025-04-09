@@ -105,7 +105,7 @@ async function highlightElement(page: Page, handle: any, label: string, color: s
 async function highlightMissing(page: Page, label: string, color: string) {
     try {
         await page.evaluate(({ label, color }) => {
-            // @ts-ignore
+            // @ts-ignore-
             window.__highlightMissing(label, color);
         }, { label, color });
     } catch (e) {

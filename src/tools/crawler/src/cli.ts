@@ -20,7 +20,7 @@ function slugify(text: string): string {
     .replace(/^-+|-+$/g, '')
     || 'page';
 }
-// --- End Auxiliary Function ---
+// -- End Auxiliary Function --
 
 program
   .name("mcp-cli")
