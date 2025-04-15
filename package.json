@@ -12,7 +12,7 @@
     "load-report-cloud": "npx artillery run .github/workflows/load-test.yaml --record --key YOUR--KEY--HERE",
     "apiTest": "npx cucumber-js --profile api --tags @API",
     "api-report": "node src/reports/api/report-generator.js",
-    "generate-locators": "ts-node src/tools/crawler/locators-generator.ts",
+    "crawler": "ts-node src/tools/crawler/locators-generator.ts",
     "mobile": "npx wdio run src/mobile-test/support/wdio.conf.ts",
     "mobile-report": "ts-node src/reports/mobile/generate-report.ts"
   },
