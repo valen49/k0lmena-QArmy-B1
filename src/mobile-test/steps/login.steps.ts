@@ -4,7 +4,7 @@ import { Given, When, Then } from '@wdio/cucumber-framework';
 import { loginLocators } from '../locators/login.locators';
 
 Given(/^la app está abierta$/, async () => {
-  await browser.pause(3000); // breve pausa para que cargue la pantalla
+  await browser.pause(3000);
   const userField = await $(loginLocators.userField);
   await userField.waitForDisplayed({ timeout: 1000 });
 });
