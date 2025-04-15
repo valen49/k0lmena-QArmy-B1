@@ -6,7 +6,6 @@ import { resolve } from 'path';
 export const config: Options.Testrunner = {
   runner: 'local',
   port: 4723,
-  // Se construye la ruta absoluta a la carpeta "features"
   specs: [resolve(__dirname, '../features/**/*.feature')],
   maxInstances: 1,
   logLevel: 'info',
@@ -17,34 +16,32 @@ export const config: Options.Testrunner = {
   services: ['appium'],
   reporters: ['spec'],
   cucumberOpts: {
-    // Ruta absoluta a los step definitions
     require: [resolve(__dirname, '../steps/**/*.ts')],
     timeout: 60000,
     failFast: false,
-    format: ['pretty']
+    // Genera el JSON en la carpeta /src/reports/mobile
+    format: ['pretty', `json:${resolve(__dirname, '../../reports/mobile/cucumber-report.json')}`]
   },
   autoCompileOpts: {
     tsNodeOpts: {
       transpileOnly: true,
-      // Ruta al tsconfig para mobile
       project: resolve(__dirname, '../tsconfig.json')
     }
   },
   capabilities: [{
     platformName: 'Android',
 
-    // Opciones para DISPOSITIVO FÍSICO:
+    // Configuración para DISPOSITIVO FÍSICO (ajustá los valores reales)
     'appium:deviceName': 'S25 Ultra',
     'appium:udid': 'R5CY12AHTBH',
     'appium:platformVersion': '11.0',
     'appium:app': resolve(__dirname, '../apps/app.apk'),
     'appium:automationName': 'UiAutomator2',
-
-    // Opciones para EMULADOR:
-    // Descomentá estas líneas y comentá las de dispositivo físico si quieres usar emulador
+    
+    // Si querés usar emulador, descomentá esta sección y comentá la de dispositivo físico
     /*
     'appium:deviceName': 'emulator-5554',
-    // Eliminá o comentá la línea 'appium:udid'
+    // Se omite 'udid'
     'appium:platformVersion': '12.0',
     'appium:app': resolve(__dirname, '../apps/app.apk'),
     'appium:automationName': 'UiAutomator2'
