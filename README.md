@@ -103,7 +103,7 @@ We implemented some tools to simplify automation.
 
 ### Crawler
 
-Run crawler: 
+Run crawler:
 ```
 npm run crawler
 ```
