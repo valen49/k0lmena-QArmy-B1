@@ -46,6 +46,11 @@ npm run allTests
 npm run apiTest
 ```
 
+### Mobile Test:
+```
+npm run mobile
+```
+
 ### Performance test:
 ```
 npm run load
@@ -70,6 +75,12 @@ npm run report-default
 
 ```
 npm run api-report
+```
+
+### Mobile Reports:
+
+```
+npm run mobile-reports
 ```
 
 ### Performance Reports:
