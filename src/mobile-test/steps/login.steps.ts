@@ -6,7 +6,7 @@ import { loginLocators } from '../locators/login.locators';
 Given(/^la app está abierta$/, async () => {
   await browser.pause(3000); // breve pausa para que cargue la pantalla
   const userField = await $(loginLocators.userField);
-  await userField.waitForDisplayed({ timeout: 15000 });
+  await userField.waitForDisplayed({ timeout: 1000 });
 });
 
 When(/^el usuario ingresa "(.+)" en el campo usuario$/, async (usuario: string) => {

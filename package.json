@@ -13,9 +13,8 @@
     "apiTest": "npx cucumber-js --profile api --tags @API",
     "api-report": "node src/reports/api/report-generator.js",
     "generate-locators": "ts-node src/tools/crawler/locators-generator.ts",
-    "mobile:test": "npx wdio run src/mobile-test/support/wdio.conf.ts",
-    "mobile:build": "tsc -p src/mobile-test/tsconfig.json",
-    "mobile:clean": "rm -rf src/mobile-test/dist"
+    "mobile": "npx wdio run src/mobile-test/support/wdio.conf.ts",
+    "mobile-report": "ts-node src/reports/mobile/generate-report.ts"
   },
   "keywords": [],
   "author": "Gianella Vezzoni - Danilo Vezzoni - Maximiliano Pintos",
