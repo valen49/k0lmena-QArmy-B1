@@ -1,4 +1,4 @@
-import * as pomGenerator from "./mcp/src/pomGenerator";
+import * as pomGenerator from "./locatorGenerator";
 import { chromium } from "@playwright/test";
 import fs from "fs";
 import path from "path";
