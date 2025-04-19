@@ -14,7 +14,8 @@
     "api-report": "node src/reports/api/report-generator.js",
     "crawler": "ts-node src/tools/crawler/locators-generator.ts",
     "mobile": "npx wdio run src/mobile-test/support/wdio.conf.ts",
-    "mobile-report": "ts-node src/reports/mobile/generate-report.ts"
+    "mobile-report": "ts-node src/reports/mobile/generate-report.ts",
+    "link-tester": "npx ts-node src/tools/link-tester/tester.ts"
   },
   "keywords": [],
   "author": "Gianella Vezzoni - Danilo Vezzoni - Maximiliano Pintos",
@@ -42,6 +43,8 @@
   "dependencies": {
     "@artilleryio/playwright-reporter": "^1.1.2",
     "artillery-plugin-html-report": "^2.0.0",
+    "axios": "^1.8.4",
+    "cheerio": "^1.0.0",
     "dotenv": "^16.4.5"
   }
 }
