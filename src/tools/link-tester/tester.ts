@@ -142,9 +142,6 @@ export async function testPageResources(pageUrl: string): Promise<void> {
   brokenImages.forEach(r => console.log(`- ${r.url} (Estado: ${r.status})`));
 }
 
-/**
- * CLI entrypoint: reads BASEURL from .env
- */
 async function main() {
   const baseUrl = process.env.BASEURL;
   if (!baseUrl) {
