@@ -15,7 +15,8 @@
     "crawler": "ts-node src/tools/crawler/locators-generator.ts",
     "mobile": "npx wdio run src/mobile-test/support/wdio.conf.ts",
     "mobile-report": "ts-node src/reports/mobile/generate-report.ts",
-    "link-tester": "npx ts-node src/tools/link-tester/tester.ts"
+    "link-tester": "npx ts-node src/tools/link-tester/tester.ts",
+    "link-tester:full": "npx ts-node src/tools/link-tester/tester.ts -full"
   },
   "keywords": [],
   "author": "Gianella Vezzoni - Danilo Vezzoni - Maximiliano Pintos",
