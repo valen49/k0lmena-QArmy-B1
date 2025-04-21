@@ -27,6 +27,7 @@
     "@playwright/test": "^1.47.2",
     "@types/node": "^22.7.4",
     "@wdio/appium-service": "^9.12.5",
+    "@wdio/browserstack-service": "^9.12.6",
     "@wdio/cli": "^9.12.5",
     "@wdio/cucumber-framework": "^9.12.5",
     "@wdio/globals": "^9.12.5",
@@ -36,6 +37,7 @@
     "artillery": "^2.0.21",
     "artillery-engine-playwright": "^1.19.0",
     "cucumber-html-reporter": "^6.0.0",
+    "dotenv": "^16.5.0",
     "multiple-cucumber-html-reporter": "^3.9.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
@@ -45,7 +47,6 @@
     "@artilleryio/playwright-reporter": "^1.1.2",
     "artillery-plugin-html-report": "^2.0.0",
     "axios": "^1.8.4",
-    "cheerio": "^1.0.0",
-    "dotenv": "^16.4.5"
+    "cheerio": "^1.0.0"
   }
 }
