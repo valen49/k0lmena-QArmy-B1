@@ -16,7 +16,8 @@
     "mobile": "npx wdio run src/mobile-test/support/wdio.conf.ts",
     "mobile-report": "ts-node src/reports/mobile/generate-report.ts",
     "link-tester": "npx ts-node src/tools/link-tester/tester.ts",
-    "link-tester:full": "npx ts-node src/tools/link-tester/tester.ts -full"
+    "link-tester:full": "npx ts-node src/tools/link-tester/tester.ts -full",
+    "debug": "cross-env CUCUMBER_DEBUG=1 npx cucumber-js --profile debug"
   },
   "keywords": [],
   "author": "Gianella Vezzoni - Danilo Vezzoni - Maximiliano Pintos",
@@ -36,6 +37,7 @@
     "appium": "^1.22.3",
     "artillery": "^2.0.21",
     "artillery-engine-playwright": "^1.19.0",
+    "cross-env": "^7.0.3",
     "cucumber-html-reporter": "^6.0.0",
     "dotenv": "^16.5.0",
     "multiple-cucumber-html-reporter": "^3.9.2",
