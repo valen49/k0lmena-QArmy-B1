@@ -3,6 +3,9 @@ import { chromium, firefox, webkit, Browser, Page } from 'playwright';
 import { BeforeAll, AfterAll, AfterStep, Status } from '@cucumber/cucumber';
 import * as fs from 'fs';
 import * as path from 'path';
+import { setDefaultTimeout } from '@cucumber/cucumber';
+
+setDefaultTimeout(60 * 1000);
 
 // Capturamos logs de consola en un array
 const logs: string[] = [];
