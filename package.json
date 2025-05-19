@@ -17,7 +17,9 @@
     "mobile-report": "ts-node src/reports/mobile/generate-report.ts",
     "link-tester": "npx ts-node src/tools/link-tester/tester.ts",
     "link-tester:full": "npx ts-node src/tools/link-tester/tester.ts -full",
-    "debug": "cross-env CUCUMBER_DEBUG=1 npx cucumber-js --profile debug"
+    "debug": "cross-env CUCUMBER_DEBUG=1 npx cucumber-js --profile debug",
+    "record": "node src/tools/generator/codegen.js"
+
   },
   "keywords": [],
   "author": "Gianella Vezzoni - Danilo Vezzoni - Maximiliano Pintos",
@@ -26,7 +28,7 @@
   "devDependencies": {
     "@cucumber/cucumber": "^11.2.0",
     "@playwright/test": "^1.47.2",
-    "@types/node": "^22.7.4",
+    "@types/node": "^22.15.19",
     "@wdio/appium-service": "^9.12.5",
     "@wdio/browserstack-service": "^9.12.6",
     "@wdio/cli": "^9.12.5",
