@@ -37,7 +37,7 @@ type Action =
   }
 
   // Generar selectores únicos y legibles
-  type LocMap = Record<string, string>;
+type LocMap = Record<string, string>;
   const locators: LocMap = {};
   function toLocatorVar(text: string, suffix: string): string {
     const clean = text.replace(/[^a-zA-Z0-9 ]+/g, ' ').trim();
@@ -90,7 +90,6 @@ type Action =
       featLines.push(`        Given El usuario navega a la ${featureTitle}`);
       continue;
     }
-    // Todos los pasos de interacción usan When
     if (act.type === 'clickRole' && act.locatorName) {
       featLines.push(`        When El usuario clickea el botón ${locators[act.locatorName]}`);
     } else if (act.type === 'fillRole' && act.locatorName) {
@@ -112,10 +111,11 @@ type Action =
   const steps: string[] = [];
   steps.push(`import { expect } from '@playwright/test';`);
   steps.push(`import { Given, When, Then } from '@cucumber/cucumber';`);
-  steps.push(`import { BASEURL } from '../../../front-test/config';`);
-  steps.push(`import { pages } from '../../../front-test/hooks/hook';`);
-  steps.push(`import { ${Object.keys(locators).join(', ')} } from './locators';`);
-  steps.push(`import { getElementByRole, getByLocatorAndFillIt } from '../../../front-test/utils/interactions';`);
+  steps.push(`import { BASEURL } from '../config';`);
+  steps.push(`import { pages } from '../hooks/hook';`);
+  steps.push(`import { validateFirstLocator } from '../utils/validations';`);
+  steps.push(`import { ${Object.keys(locators).join(', ')} } from '../locators/exampleLocators';`);
+  steps.push(`import { getElementByRole, getByLocatorAndFillIt, getByLocator } from '../utils/interactions';`);
   steps.push('');
 
   // Given
@@ -153,7 +153,7 @@ type Action =
       steps.push(
         `When('El usuario clickea el elemento ${locators[act.locatorName]}', async () => {`,
         `  for (const page of pages) {`,
-        `    await getByLocator(page, \`text="${locators[act.locatorName]}"\`);`,
+        `    await getByLocator(page, \`text=\"${locators[act.locatorName]}\"\`);`,
         `  }`,
         `});`,
         ''
@@ -161,12 +161,13 @@ type Action =
     }
   }
 
-  // Then
+  // Then: usar validateFirstLocator para verificar un elemento 'div'
   const lastLocatorKey = Object.keys(locators).pop();
   steps.push(
     `Then('Se muestran los resultados de la búsqueda', async () => {`,
     `  for (const page of pages) {`,
-    `    await expect(page.locator(${lastLocatorKey})).toBeVisible();`,
+    `    const resultado = validateFirstLocator(page, 'div', ${lastLocatorKey});`,
+    `    expect(resultado).toBeTruthy();`,
     `  }`,
     `});`
   );
