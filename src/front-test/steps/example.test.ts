@@ -25,7 +25,7 @@ When('User search for cars options', async function () {
   for (const page of pages) {
     await getByPlaceholderAndClickIt(page, inputLabel);
     await getByPlaceholderAndFillIt(page, inputLabel, "auto");
-    (await getElementByRole(page, "button", buttonSearch));
+    await page.locator(buttonSearch).click();
   }
 });
 
