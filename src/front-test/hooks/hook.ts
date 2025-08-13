@@ -1,6 +1,6 @@
 "use strict";
 import { chromium, firefox, webkit, Browser, Page } from 'playwright';
-import { BeforeAll, AfterAll, AfterStep, Status } from '@cucumber/cucumber';
+import { BeforeAll, AfterAll, AfterStep, Status, Before } from '@cucumber/cucumber';
 import * as fs from 'fs';
 import * as path from 'path';
 import { setDefaultTimeout } from '@cucumber/cucumber';
@@ -17,6 +17,7 @@ console.log = function(...args: any[]) {
 
 let browsers: Browser[] = [];
 let pages: Page[] = [];
+
 
 BeforeAll(async function () {
   const browserChoice = process.env.BROWSER;
