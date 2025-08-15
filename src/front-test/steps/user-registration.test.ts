@@ -27,11 +27,11 @@ Given('the user is on the registration page', async () => {
 
 // -------------------- When --------------------
 
-// Llenar el formulario de registro con email dinámico
+
 When('the user fills the registration form with:', async function (dataTable) {
   const data = dataTable.rowsHash();
 
-  // Generar email dinámico aquí
+  
   const emailValue = data['Email'] === '{{randomEmail}}' ? `user${Date.now()}@example.com` : data['Email'];
   console.log(`Llenando el campo Email con: ${emailValue}`);
 
@@ -45,7 +45,7 @@ When('the user fills the registration form with:', async function (dataTable) {
   }
 });
 
-// Seleccionar newsletter como No
+
 When('the user selects Suscription as No', async () => {
   for (const page of pages) {
     await newsletterNoOption(page).click();
@@ -62,7 +62,7 @@ When('the user clicks on the "Continue" button', async () => {
 
 // -------------------- Then --------------------
 
-// Validar que se redirige a la página de éxito
+
 Then('the user should be redirected to the "success" page', async () => {
   const expectedPath = '/index.php?route=account/success';
 
@@ -75,47 +75,3 @@ Then('the user should be redirected to the "success" page', async () => {
 
 
 
-let storedEmail = ''; // guardamos aquí el email del registro exitoso
-
-When('the user registers successfully with a unique email', async function () {
-  // generamos un email único
-  storedEmail = `user${Date.now()}@example.com`;
-  console.log(`Registrando primer usuario con email: ${storedEmail}`);
-
-  for (const page of pages) {
-    await page.goto(`${BASEURL}/index.php?route=account/register`);
-    await getByLocatorAndFillIt(page, firstNameInput(page), 'John');
-    await getByLocatorAndFillIt(page, lastNameInput(page), 'Doe');
-    await getByLocatorAndFillIt(page, emailInput(page), storedEmail);
-    await getByLocatorAndFillIt(page, telephoneInput(page), '1234567890');
-    await getByLocatorAndFillIt(page, passwordInput(page), 'Secret123!');
-    await getByLocatorAndFillIt(page, confirmPasswordInput(page), 'Secret123!');
-    await newsletterNoOption(page).click();
-    await privacyPolicyCheckbox(page).click();
-    await continueButton(page).click();
-  }
-});
-
-When('the user tries to register again with the same email', async function () {
-  console.log(`Intentando registrar nuevamente con el mismo email: ${storedEmail}`);
-
-  for (const page of pages) {
-    await page.goto(`${BASEURL}/index.php?route=account/register`);
-    await getByLocatorAndFillIt(page, firstNameInput(page), 'Jane');
-    await getByLocatorAndFillIt(page, lastNameInput(page), 'Smith');
-    await getByLocatorAndFillIt(page, emailInput(page), storedEmail);
-    await getByLocatorAndFillIt(page, telephoneInput(page), '0987654321');
-    await getByLocatorAndFillIt(page, passwordInput(page), 'Secret123!');
-    await getByLocatorAndFillIt(page, confirmPasswordInput(page), 'Secret123!');
-    await newsletterNoOption(page).click();
-    await privacyPolicyCheckbox(page).click();
-    await continueButton(page).click();
-  }
-});
-
-Then('the system should display an inline error message about the email', async () => {
-  for (const page of pages) {
-    const errorMessageLocator = page.locator('.text-danger'); // ajustá al selector real
-    await expect(errorMessageLocator).toContainText('E-Mail Address is already registered!');
-  }
-});

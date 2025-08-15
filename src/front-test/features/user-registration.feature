@@ -20,3 +20,4 @@ Feature: User Registration
     And the user clicks on the "Continue" button
     Then the user should be redirected to the "success" page
 
+

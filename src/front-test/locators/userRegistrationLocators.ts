@@ -12,3 +12,6 @@ export const confirmPasswordInput = (page: Page) => page.getByRole('textbox', { 
 export const newsletterNoOption = (page: Page) => page.getByText('No', { exact: true });
 export const privacyPolicyCheckbox = (page: Page) => page.getByText('I have read and agree to the');
 export const continueButton = (page: Page) => page.getByRole('button', { name: 'Continue' });
+
+
+export const errorEmailExistsMessage = (page: Page) => page.locator('.alert-danger');
