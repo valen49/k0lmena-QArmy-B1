@@ -104,6 +104,7 @@ export const getByLocator = async (page: Page, locator: LocatorType) => {
   await page.locator(locator).click();
 }
 
-export const getByLocatorAndFillIt = async (page: Page, locator: LocatorType, value: string) => {
-  await page.locator(locator).fill(value);
+
+export const getByLocatorAndFillIt = async (page: Page, locator: any, value: string) => {
+  await locator.fill(value); // ya es un Locator real, no un string
 };

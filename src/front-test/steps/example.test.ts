@@ -34,3 +34,4 @@ Then('It should show all the results according to the search', async function ()
     expect(validateFirstLocator(page, "div", divResult)).toBeTruthy();
   }
 });
+
