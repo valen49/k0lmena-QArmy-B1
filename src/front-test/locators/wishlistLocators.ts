@@ -1,8 +1,9 @@
-// Locators para la página de wishlist
-export const TOP_PRODUCTS_SECTION = '';
-export const ADD_TO_WISHLIST_BUTTON = '';
-export const WISHLIST_SECTION = '';
-export const WISHLIST_PRODUCT = '';
-export const REMOVE_FROM_WISHLIST_BUTTON = '';
-export const ADD_TO_CART_FROM_WISHLIST_BUTTON = '';
-export const CHECKOUT_SECTION = '';
+// Locators para Wishlist Management
+export const productAddToWishlistButton = '#mz-product-tab-37218329-0';
+export const wishlistButtonLabel = '1 /';
+export const wishlistEmptyButtonName = '';
+export const wishlistLink = 'Wishlist';
+export const topProductsSection = '#top-products-section';
+export const productInWishlist = 'Product 14';
+export const removeFromWishlistButton = '';
+

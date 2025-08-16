@@ -31,20 +31,29 @@ Given('the user is on the registration page', async () => {
 When('the user fills the registration form with:', async function (dataTable) {
   const data = dataTable.rowsHash();
 
-  
   const emailValue = data['Email'] === '{{randomEmail}}' ? `user${Date.now()}@example.com` : data['Email'];
+  const passwordValue = data['Password'];
+  
+  // ⭐ GUARDAR EN EL CONTEXTO PARA USAR EN LOGIN
+  this.userData = {
+    email: emailValue,
+    password: passwordValue,
+    firstName: data['First Name'],
+    lastName: data['Last Name']
+  };
+  
   console.log(`Llenando el campo Email con: ${emailValue}`);
+  console.log(`Datos guardados para login: ${JSON.stringify(this.userData)}`);
 
   for (const page of pages) {
     await getByLocatorAndFillIt(page, firstNameInput(page), data['First Name']);
     await getByLocatorAndFillIt(page, lastNameInput(page), data['Last Name']);
     await getByLocatorAndFillIt(page, emailInput(page), emailValue);
     await getByLocatorAndFillIt(page, telephoneInput(page), data['Telephone']);
-    await getByLocatorAndFillIt(page, passwordInput(page), data['Password']);
+    await getByLocatorAndFillIt(page, passwordInput(page), passwordValue);
     await getByLocatorAndFillIt(page, confirmPasswordInput(page), data['PasswordConfirm']);
   }
 });
-
 
 When('the user selects Suscription as No', async () => {
   for (const page of pages) {
