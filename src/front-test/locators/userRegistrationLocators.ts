@@ -13,3 +13,6 @@ export const newsletterNoOption = (page: Page) => page.getByText('No', { exact: 
 export const privacyPolicyCheckbox = (page: Page) => page.getByText('I have read and agree to the');
 export const continueButton = (page: Page) => page.getByRole('button', { name: 'Continue' });
 export const errorEmailExistsMessage = (page: Page) => page.locator('.alert-danger');
+export const successPage = (page: Page) => page.getByRole('heading', { name: ' Your Account Has Been' })
+
+

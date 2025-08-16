@@ -19,5 +19,3 @@ Feature: User Registration
     And the user selects Suscription as No
     And the user clicks on the "Continue" button
     Then the user should be redirected to the "success" page
-
-

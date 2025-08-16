@@ -11,7 +11,7 @@ import {
   newsletterNoOption,
   privacyPolicyCheckbox,
   continueButton,
-  errorEmailExistsMessage
+  successPage
 } from '../locators/userRegistrationLocators';
 import { BASEURL } from '../config';
 
@@ -25,11 +25,8 @@ function generateRandomEmail() {
 
 Given('the user is on the registration page', async function () {
   for (const page of pages) {
-    console.log(`Ejecutando prueba en navegador: ${page.context().browser()?.browserType().name()}`);
-    console.log('Navegando a la página de registro: ' + BASEURL + '/index.php?route=account/register');
     // Navigate directly to the registration page.
     await page.goto(`${BASEURL}/index.php?route=account/register`, { waitUntil: 'domcontentloaded' });
-    console.log('URL final: ' + page.url());
     
     // Check that we are on the registration page
     await expect(page).toHaveURL(/account\/register/);
@@ -53,15 +50,12 @@ When('the user fills the registration form with:', async function (dataTable) {
     await telephoneInput(page).fill(data['Telephone']);
     await passwordInput(page).fill(data['Password']);
     await confirmPasswordInput(page).fill(data['PasswordConfirm']);
-
-    console.log('Registration form filled successfully');
   }
 });
 
 When('the user selects Suscription as No', async function () {
   for (const page of pages) {
     await newsletterNoOption(page).click();
-    console.log('Newsletter option set to No');
   }
 });
 
@@ -76,7 +70,6 @@ When('the user clicks on the "Continue" button', async function () {
     if (await continueBtn.isEnabled()) {
       await continueBtn.click();
     } else {
-      console.log('El botón "Continue" no está habilitado.');
       throw new Error('El botón "Continue" no está habilitado para hacer clic.');
     }
   }
@@ -86,9 +79,8 @@ When('the user clicks on the "Continue" button', async function () {
 
 Then('the user should be redirected to the "success" page', async function () {
   for (const page of pages) {
-    await page.waitForURL('**/account/success', { timeout: 15000 });
-    await expect(page).toHaveURL(/account\/success/);
-    console.log('Registration completed successfully');
+    // La prueba esperará automáticamente hasta que el elemento sea visible,
+    // lo que confirma que la página se cargó correctamente después de la redirección.
+    await expect(successPage(page)).toBeVisible();
   }
 });
-

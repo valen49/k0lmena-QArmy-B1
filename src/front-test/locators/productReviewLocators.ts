@@ -1,6 +1,5 @@
-// Locators para la página de reseñas de producto
-export const PRODUCT_PAGE = '';
-export const YOUR_NAME_INPUT = '';
-export const YOUR_REVIEW_INPUT = '';
-export const WRITE_REVIEW_BUTTON = '';
-export const REVIEW_ERROR_MESSAGE = '';
+import { Page } from '@playwright/test';
+export const yourNameInput = (page: Page) => page.getByRole('textbox', { name: 'Your Name' });
+export const yourReviewInput = (page: Page) => page.getByRole('textbox', { name: 'Your Review' });
+export const writeReviewButton = (page: Page) => page.getByRole('button', { name: 'Write Review' });
+export const warningMessage = (page: Page) => page.getByText('Warning: Please select a review rating!');

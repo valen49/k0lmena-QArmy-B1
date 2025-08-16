@@ -1,6 +1,5 @@
-// Locators para la página de login
-export const EMAIL_INPUT = '';
-export const PASSWORD_INPUT = '';
-export const LOGIN_BUTTON = '';
-export const MY_ACCOUNT_SECTION = '';
-export const LOGIN_ERROR_MESSAGE = '';
+import { Page } from '@playwright/test';
+export const emailInput = (page: Page) => page.getByRole('textbox', { name: 'E-Mail Address' });
+export const passwordInput = (page: Page) => page.getByRole('textbox', { name: 'Password' });
+export const loginButton = (page: Page) => page.getByRole('button', { name: 'Login' });
+export const warningMessage = (page: Page) => page.getByText('Warning: No match for E-Mail Address and/or Password.');
