@@ -1,142 +1,66 @@
-import { expect } from '@playwright/test';
 import { Given, When, Then } from '@cucumber/cucumber';
-import { BASEURL } from '../config';
+import { expect } from '@playwright/test';
 import { pages } from '../hooks/hook';
-import { validateFirstLocator } from '../utils/validations';
+import { getByLocatorAndFillIt } from '../utils/interactions';
+
 import {
- emailAddress,
- password,
- loginButton
+  emailAddress,
+  password as loginPassword, // Renombrar para evitar conflictos
+  loginButton
 } from '../locators/loginLocators';
 import {
- topProductsSection,
- wishlistLink,
- productAddToWishlistButton,
- wishlistButtonLabel,
- productInWishlist,
- removeFromWishlistButton
+  //topProductsSection,
+  productAddToWishlistButton,
+  wishlistButtonLabel,
+  wishlistLink,
+  productInWishlist,
+  removeFromWishlistButton
 } from '../locators/wishlistLocators';
-import {
- getElementByRoleAndClickIt,
- getElementByRole
-} from '../utils/interactions';
+import { BASEURL } from '../config';
 
-// Variable global para compartir datos de usuario entre escenarios
-let globalUserData: any = null;
-
-// -------------------- Background --------------------
-
-Given('a user is registered in the system', async function () {
-  // Verificar si ya hay un usuario registrado globalmente
-  if (globalUserData) {
-    console.log(`User already registered globally: ${globalUserData.email}`);
-    this.userData = globalUserData;
-    return;
-  }
-  
-  // Generar datos para el registro
-  const userData = {
-    email: `user${Date.now()}@example.com`,
-    password: 'TestPassword123!',
-    firstName: 'Test',
-    lastName: 'User',
-    telephone: '1234567890'
-  };
-  
-  // Guardar en contexto local y global
-  this.userData = userData;
-  globalUserData = userData;
-  
-  for (const page of pages) {
-    console.log(`Registering user for wishlist test: ${userData.email}`);
-    await page.goto(`${BASEURL}/index.php?route=account/register`);
-    
-    // Esperar a que el formulario esté disponible
-    await page.waitForSelector('input[name="firstname"]', { timeout: 10000 });
-    
-    // Llenar formulario básico (sin usar dataTable como en el otro step)
-    await page.getByRole('textbox', { name: 'First Name' }).fill(userData.firstName);
-    await page.getByRole('textbox', { name: 'Last Name' }).fill(userData.lastName);
-    await page.getByRole('textbox', { name: 'E-Mail' }).fill(userData.email);
-    await page.getByRole('textbox', { name: 'Telephone' }).fill(userData.telephone);
-    await page.getByRole('textbox', { name: 'Password' }).fill(userData.password);
-    await page.getByRole('textbox', { name: 'Password Confirm' }).fill(userData.password);
-    
-    // Selecciones básicas
-    await page.getByRole('radio', { name: 'No' }).click(); // Newsletter
-    await page.getByRole('checkbox').click(); // Privacy policy
-    await page.getByRole('button', { name: 'Continue' }).click();
-    
-    // Verificar registro exitoso
-    await page.waitForURL('**/account/success');
-    console.log(`User registered successfully: ${userData.email}`);
-  }
-});
 
 // -------------------- Given --------------------
 
-Given('the user is logged into the system', async function () {
-  // Asegurar que tenemos los datos del usuario (del contexto o global)
-  const userData = this.userData || globalUserData;
-  
-  if (!userData) {
-    throw new Error('No user data available for login');
-  }
-  
-  const { email, password: userPassword } = userData;
-  
-  for (const page of pages) {
-    console.log(`Logging in user: ${email}`);
-    await page.goto(`${BASEURL}/index.php?route=account/login`);
-    
-    // Llenar formulario de login
-    await page.getByRole('textbox', { name: emailAddress }).fill(email);
-    await page.getByRole('textbox', { name: password }).fill(userPassword);
-    await page.getByRole('button', { name: loginButton }).click();
-    
-    // Esperar a que se complete el login (opcional: verificar redirección)
-    await page.waitForURL('**/account/account');
-  }
-});
+
 
 Given('the user is on the home page', async function () {
   for (const page of pages) {
-    await page.goto(BASEURL);
-    await page.reload();
-    await page.waitForLoadState('domcontentloaded');
-  }
-});
-
-Given('the user is on the wishlist page', async function () {
-  for (const page of pages) {
-    await page.goto(`${BASEURL}/index.php?route=account/wishlist`);
+    await page.goto(BASEURL, { waitUntil: 'domcontentloaded', timeout: 15000 });
+    console.log(`Navegado a la página de inicio: ${page.url()}`);
   }
 });
 
 // -------------------- When --------------------
-
+/*
 When('the user scrolls to the "Top Products" section', async function () {
   for (const page of pages) {
     await page.locator(topProductsSection).scrollIntoViewIfNeeded();
+    console.log('Desplazado a la sección de "Top Products".');
   }
 });
-
+*/
 When('the user adds a product to the wishlist', async function () {
   for (const page of pages) {
-    await page.locator(productAddToWishlistButton).getByLabel(wishlistButtonLabel).getByRole('button', { name: '' }).click();
+    await page.locator(productAddToWishlistButton).getByLabel(wishlistButtonLabel).click();
+    console.log('Producto añadido a la lista de deseos.');
+    // Wait a moment for visual update
+    await page.waitForTimeout(2000);
   }
 });
 
 When('the user navigates to the wishlist page', async function () {
   for (const page of pages) {
-    await page.getByRole('link', { name: wishlistLink, exact: true }).scrollIntoViewIfNeeded();
-    await page.getByRole('link', { name: wishlistLink, exact: true }).click();
+    await page.getByRole('link', { name: wishlistLink }).click();
+    await page.waitForURL('**/account/wishlist', { timeout: 10000 });
+    console.log('Navegado a la página de lista de deseos.');
   }
 });
 
 When('the user removes the product from the wishlist', async function () {
   for (const page of pages) {
     await page.getByRole('link', { name: removeFromWishlistButton }).click();
+    await page.waitForTimeout(2000);
+    console.log('Producto eliminado de la lista de deseos.');
   }
 });
 
@@ -144,12 +68,14 @@ When('the user removes the product from the wishlist', async function () {
 
 Then('the wishlist should contain the added product', async function () {
   for (const page of pages) {
-    await expect(page.getByRole('cell', { name: productInWishlist })).toBeVisible();
+    await expect(page.getByRole('link', { name: productInWishlist })).toBeVisible();
+    console.log('Producto verificado en la lista de deseos.');
   }
 });
 
 Then('the system should not display that product in the wishlist', async function () {
   for (const page of pages) {
-    await expect(page.getByRole('cell', { name: productInWishlist })).toBeHidden();
+    await expect(page.getByRole('link', { name: productInWishlist })).toBeHidden();
+    console.log('Verificado que el producto ya no está en la lista de deseos.');
   }
 });

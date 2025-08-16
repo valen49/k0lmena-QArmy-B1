@@ -1,7 +1,6 @@
 import { Given, When, Then } from '@cucumber/cucumber';
 import { expect } from '@playwright/test';
 import { pages } from '../hooks/hook';
-import { getByLocatorAndFillIt } from '../utils/interactions';
 import {
   firstNameInput,
   lastNameInput,
@@ -11,76 +10,85 @@ import {
   confirmPasswordInput,
   newsletterNoOption,
   privacyPolicyCheckbox,
-  continueButton
+  continueButton,
+  errorEmailExistsMessage
 } from '../locators/userRegistrationLocators';
 import { BASEURL } from '../config';
 
+// Helper function to generate a unique email
+function generateRandomEmail() {
+  const timestamp = Date.now();
+  return `testuser_${timestamp}@example.com`;
+}
+
 // -------------------- Given --------------------
 
-// Navegar a la página de registro
-Given('the user is on the registration page', async () => {
+Given('the user is on the registration page', async function () {
   for (const page of pages) {
     console.log(`Ejecutando prueba en navegador: ${page.context().browser()?.browserType().name()}`);
-    await page.goto(`${BASEURL}/index.php?route=account/register`);
+    console.log('Navegando a la página de registro: ' + BASEURL + '/index.php?route=account/register');
+    // Navigate directly to the registration page.
+    await page.goto(`${BASEURL}/index.php?route=account/register`, { waitUntil: 'domcontentloaded' });
+    console.log('URL final: ' + page.url());
+    
+    // Check that we are on the registration page
+    await expect(page).toHaveURL(/account\/register/);
+
+    // Wait for the form to be ready before proceeding
+    await page.waitForSelector('input[name="firstname"]', { timeout: 10000 });
   }
 });
 
 // -------------------- When --------------------
 
-
 When('the user fills the registration form with:', async function (dataTable) {
-  const data = dataTable.rowsHash();
-
-  const emailValue = data['Email'] === '{{randomEmail}}' ? `user${Date.now()}@example.com` : data['Email'];
-  const passwordValue = data['Password'];
-  
-  // ⭐ GUARDAR EN EL CONTEXTO PARA USAR EN LOGIN
-  this.userData = {
-    email: emailValue,
-    password: passwordValue,
-    firstName: data['First Name'],
-    lastName: data['Last Name']
-  };
-  
-  console.log(`Llenando el campo Email con: ${emailValue}`);
-  console.log(`Datos guardados para login: ${JSON.stringify(this.userData)}`);
-
   for (const page of pages) {
-    await getByLocatorAndFillIt(page, firstNameInput(page), data['First Name']);
-    await getByLocatorAndFillIt(page, lastNameInput(page), data['Last Name']);
-    await getByLocatorAndFillIt(page, emailInput(page), emailValue);
-    await getByLocatorAndFillIt(page, telephoneInput(page), data['Telephone']);
-    await getByLocatorAndFillIt(page, passwordInput(page), passwordValue);
-    await getByLocatorAndFillIt(page, confirmPasswordInput(page), data['PasswordConfirm']);
+    const data = dataTable.rowsHash();
+    
+    const userEmail = data['Email'] === '{{randomEmail}}' ? generateRandomEmail() : data['Email'];
+
+    await firstNameInput(page).fill(data['First Name']);
+    await lastNameInput(page).fill(data['Last Name']);
+    await emailInput(page).fill(userEmail);
+    await telephoneInput(page).fill(data['Telephone']);
+    await passwordInput(page).fill(data['Password']);
+    await confirmPasswordInput(page).fill(data['PasswordConfirm']);
+
+    console.log('Registration form filled successfully');
   }
 });
 
-When('the user selects Suscription as No', async () => {
+When('the user selects Suscription as No', async function () {
   for (const page of pages) {
     await newsletterNoOption(page).click();
+    console.log('Newsletter option set to No');
   }
 });
 
-// Aceptar la política de privacidad y continuar
-When('the user clicks on the "Continue" button', async () => {
+When('the user clicks on the "Continue" button', async function () {
   for (const page of pages) {
-    await privacyPolicyCheckbox(page).click();
-    await continueButton(page).click();
+    // Check the privacy policy checkbox
+    await privacyPolicyCheckbox(page).check();
+
+    // Add a short delay and check if the button is enabled before clicking to ensure stability
+    await page.waitForTimeout(500); 
+    const continueBtn = continueButton(page);
+    if (await continueBtn.isEnabled()) {
+      await continueBtn.click();
+    } else {
+      console.log('El botón "Continue" no está habilitado.');
+      throw new Error('El botón "Continue" no está habilitado para hacer clic.');
+    }
   }
 });
 
 // -------------------- Then --------------------
 
-
-Then('the user should be redirected to the "success" page', async () => {
-  const expectedPath = '/index.php?route=account/success';
-
+Then('the user should be redirected to the "success" page', async function () {
   for (const page of pages) {
-    const currentUrl = page.url();
-    console.log(`URL actual después del registro: ${currentUrl}`);
-    expect(currentUrl).toContain(expectedPath);
+    await page.waitForURL('**/account/success', { timeout: 15000 });
+    await expect(page).toHaveURL(/account\/success/);
+    console.log('Registration completed successfully');
   }
 });
-
-
 
